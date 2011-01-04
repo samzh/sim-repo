@@ -1,0 +1,35 @@
+<configuration>
+    <!--控制台日志-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!--完整长堆栈，全部信息-->
+            <!--<Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%class->%method#%line][%level]: %msg%n</Pattern>-->
+            <!--精简信息，普通调试-->
+            <Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%class{0}][%level]: %msg%n</Pattern>
+        </layout>
+    </appender>
+    <!--文件日志-->
+    <!--<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>../logs/gpsTiming.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <FileNamePattern>../logs/gpsTiming.log.%i.bak</FileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>10</MaxIndex>
+        </rollingPolicy>
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>600MB</MaxFileSize>
+        </triggeringPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%class->%method#%line][%level]: %msg%n</Pattern>
+        </layout>
+    </appender>
+    --><!--ROOT日志记录器-->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+  
+    <logger name="net.samzh.repo" level="DEBUG" additivity="true"><!--
+        <appender-ref ref="FILE"/>
+    --></logger>
+</configuration>
