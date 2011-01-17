@@ -3,9 +3,28 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory>
-		
-    	<!-- <mapping resource="cn/myapps/core/shortmessage/received/ejb/ReceivedMessageVO.hbm.xml" /> -->
-    	
-    </session-factory>
+
+		<session-factory>
+			<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+			<!--为true表示将Hibernate发送给数据库的sql显示出来 -->
+			<property name="show_sql">true</property>
+			<property name="format_sql">false</property>
+			<!-- 设定对数据库进行批量删除 -->
+			<property name="jdbc.batch_size">25</property>
+			<!-- 一次读的数据库记录数 -->
+			<property name="jdbc.fetch_size">50</property>
+			<!-- 由java更新对应表 -->
+			<property name="hbm2ddl.auto">update</property>
+			<!-- 连接池容量上限 -->
+			<property name="connection.pool_size">500</property>
+
+			<!--配置缓存插件 -->
+			<property name="hibernate.cache.provider_class">
+				org.hibernate.cache.EhCacheProvider   
+	 </property>
+
+			<property name="cache.use_second_level_cache">false</property>
+
+		</session-factory>
 </hibernate-configuration>
