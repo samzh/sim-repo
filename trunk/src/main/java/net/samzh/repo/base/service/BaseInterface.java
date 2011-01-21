@@ -1,6 +1,7 @@
 package net.samzh.repo.base.service;
 
 import java.io.Serializable;
+import java.util.List;
 
 public interface BaseInterface<T> {
 	
@@ -13,5 +14,7 @@ public interface BaseInterface<T> {
 	public void removeById(Serializable id);
 	
 	public T findById(Serializable id);
+	
+	public List<T> listAll();
 	
 }

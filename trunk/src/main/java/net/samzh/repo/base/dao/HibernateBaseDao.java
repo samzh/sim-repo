@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.transaction.annotation.Transactional;
+
 public class HibernateBaseDao<T> extends BaseDAO<T> {
 
 	@PersistenceContext
@@ -54,15 +56,15 @@ public class HibernateBaseDao<T> extends BaseDAO<T> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findAll() {
-		String SQL = "select c from " + this.clazz.getName() + " c";
-		return em.createQuery(SQL).getResultList();
+		return em.createQuery(buildSql(this.clazz)).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> findList(int pageNo, int pageSize) {
-		String SQL = "select c from " + this.clazz.getName() + " c";
-		return em.createQuery(SQL).setFirstResult((pageNo - 1) * pageSize).setMaxResults(pageSize).getResultList();
+
+		return em.createQuery(buildSql(this.clazz)).setFirstResult((pageNo - 1) * pageSize).setMaxResults(pageSize)
+				.getResultList();
 	}
 
 	public void setClazz(Class<T> clazz) {
@@ -71,6 +73,12 @@ public class HibernateBaseDao<T> extends BaseDAO<T> {
 
 	public Class<T> getClazz() {
 		return clazz;
+	}
+
+	private String buildSql(Class<T> clazz) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("select c from ").append(clazz.getName()).append(" c");
+		return builder.toString();
 	}
 
 }
