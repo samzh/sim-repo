@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+@FONT-FACE {
+	font-family: "微软雅黑", arial, Tahoma, Vendara;
+}
+
+html {
+	font-size:14px;
+}
+
+body {
+	margin:0;
+}
+
+#container {
+	width:1000px;
+	height:800px;
+	margin-left: auto;
+	margin-right:auto;
+}
+
+#header {
+	height:80px;
+}
+
+#menu {
+	width:200px;
+	float:left;
+	height:600px;
+}
+
+#mainContent {
+	width:800px;
+	height:600px;
+	float:left;
+}
+
+/*subject-new*/
+.main-title {
+	font-size:24px;
+	height:28px;
+	width:780px;
+}
