@@ -20,28 +20,28 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	@Transactional
 	public void persist(Subject entity) {
-		subjectDAO.create(entity);
+		subjectDAO.persist(entity);
 
 	}
 
 	@Override
 	@Transactional
 	public void merge(Subject entity) {
-		subjectDAO.update(entity);
+		subjectDAO.merge(entity);
 
 	}
 
 	@Override
 	@Transactional
 	public void remove(Subject entity) {
-		subjectDAO.delete(entity);
+		subjectDAO.remove(entity);
 
 	}
 
 	@Override
 	@Transactional
 	public void removeById(Serializable id) {
-		subjectDAO.deleteById(id);
+		subjectDAO.removeById(id);
 
 	}
 
@@ -53,7 +53,7 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public List<Subject> listAll() {
 
-		return subjectDAO.findAll();
+		return subjectDAO.queryAll();
 	}
 
 }

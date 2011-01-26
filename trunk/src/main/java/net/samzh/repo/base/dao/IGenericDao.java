@@ -12,20 +12,55 @@ import java.util.List;
  */
 public interface IGenericDao<T> {
 
-	void create(T entity);
+	/**
+	 * 持久化实体
+	 * 
+	 * @param entity
+	 */
+	void persist(T entity);
 
-	void delete(T entity);
+	/**
+	 * 移除实体
+	 * 
+	 * @param entity
+	 */
+	void remove(T entity);
 
-	void update(T entity);
+	/**
+	 * 更新实体
+	 * 
+	 * @param entity
+	 */
+	void merge(T entity);
 
 	T get(Serializable id);
 
-	List<T> findAll();
+	/**
+	 * 查询所有实体
+	 * 
+	 * @return
+	 */
+	List<T> queryAll();
 
-	List<T> findList(int pageNo, int pageSize);
-	
-	long getCount();
+	/**
+	 * 根据分页信息查询所有实体
+	 * 
+	 * @param pageNo
+	 *            页数
+	 * @param pageSize
+	 *            每页条数
+	 * @return
+	 */
+	List<T> queryList(int pageNo, int pageSize);
 
-	void deleteById(Serializable id);
+	/**
+	 * 返回实体在数据库中的条数
+	 * 
+	 * @param entity
+	 * @return
+	 */
+	long getCount(T entity);
+
+	void removeById(Serializable id);
 
 }
