@@ -7,8 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.transaction.annotation.Transactional;
-
 public class HibernateBaseDao<T> extends BaseDAO<T> {
 
 	@PersistenceContext
@@ -27,23 +25,23 @@ public class HibernateBaseDao<T> extends BaseDAO<T> {
 	}
 
 	@Override
-	public void create(T entity) {
+	public void persist(T entity) {
 		em.persist(entity);
 
 	}
 
 	@Override
-	public void delete(T entity) {
+	public void remove(T entity) {
 		em.remove(entity);
 	}
 
 	@Override
-	public void deleteById(Serializable id) {
+	public void removeById(Serializable id) {
 		em.remove(get(id));
 	}
 
 	@Override
-	public void update(T entity) {
+	public void merge(T entity) {
 		em.merge(entity);
 
 	}
@@ -53,18 +51,15 @@ public class HibernateBaseDao<T> extends BaseDAO<T> {
 		return (T) em.find(clazz, id);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findAll() {
-		return em.createQuery(buildSql(this.clazz)).getResultList();
+	public List<T> queryAll() {
+		return em.createQuery(em.getCriteriaBuilder().createQuery(this.clazz)).getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findList(int pageNo, int pageSize) {
-
-		return em.createQuery(buildSql(this.clazz)).setFirstResult((pageNo - 1) * pageSize).setMaxResults(pageSize)
-				.getResultList();
+	public List<T> queryList(int pageNo, int pageSize) {
+		return em.createQuery(em.getCriteriaBuilder().createQuery(this.clazz)).setFirstResult((pageNo - 1) * pageSize)
+				.setMaxResults(pageSize).getResultList();
 	}
 
 	public void setClazz(Class<T> clazz) {
@@ -75,10 +70,8 @@ public class HibernateBaseDao<T> extends BaseDAO<T> {
 		return clazz;
 	}
 
-	private String buildSql(Class<T> clazz) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("select c from ").append(clazz.getName()).append(" c");
-		return builder.toString();
+	@Override
+	public long getCount(T entity) {
+		return 0;
 	}
-
 }
